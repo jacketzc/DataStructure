@@ -1,5 +1,9 @@
 package tools;
 
+/**
+ * 原有的栈是一个类，此处将它作为接口
+ * @param <E>
+ */
 public interface Stack<E> {
     int getSize();
     boolean isEmpty();

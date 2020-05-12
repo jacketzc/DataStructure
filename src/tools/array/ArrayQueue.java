@@ -18,16 +18,20 @@ public class ArrayQueue<E> implements Queue<E> {
         array = new Array();
     }
 
+    /**
+     * 入队
+     * @param e
+     */
     @Override
     public void enqueue(E e) {
         array.addLast(e);
     }
-
+//    出队
     @Override
     public E dequeue() {
         return array.removeFirst();
     }
-
+//    获取队首元素
     @Override
     public E getFront() {
         return array.getFirst();
