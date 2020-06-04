@@ -10,6 +10,7 @@ import java.util.function.Consumer;
  * 二分搜索树，
  * 存放的数据要求有可比较性（实现comparable接口）
  * 自动忽略重复的元素
+ * 输出和添加的顺序有关！
  *
  * @param <E>
  */
@@ -144,6 +145,7 @@ public class BSTree<E extends Comparable<E>> {
 
 
 //    中序遍历
+//    step代表层深
     private void traverse(Node node, int step) {
         if (node == null)
             return;
@@ -166,6 +168,10 @@ public class BSTree<E extends Comparable<E>> {
 
 //    先序遍历，不使用递归
     public void preOrder(){
+        if (size==0) {
+            System.out.println("此树为空");
+            return;
+        }
         ArrayStack<Node> stack = new ArrayStack<>();
 //        Node push=root;
         Node pop;
@@ -182,6 +188,10 @@ public class BSTree<E extends Comparable<E>> {
 
 //    层序遍历
     public void sequence(){
+        if (size==0){
+            System.out.println("此树为空");
+            return;
+        }
         Array<Node> array = new Array<>();
         array.addLast(root);
         while (array.getSize()!=0){
@@ -200,5 +210,73 @@ public class BSTree<E extends Comparable<E>> {
             System.out.println();
 
         }
+    }
+
+//    查找最小节点（非递归）
+    public E minNum(){
+        Node res=root;
+        while (res.left!=null)
+            res=res.left;
+        return res.e;
+    }
+//    查找最大节点
+    public E maxNum(){
+        Node res=root;
+        while (res.right!=null)
+            res=res.right;
+        return res.e;
+    }
+    public E removeMax(){
+        E res = maxNum();
+        System.out.println("最大的节点是："+res.toString());
+        if (root==null)
+            throw new IllegalArgumentException("无法删除最大值，因为树为空");
+        size--;
+        removeMax(root);
+        return res;
+    }
+    //删除以该节点为根节点的树中的最大值
+    private void removeMax(Node node){
+//        这边删除节点的方式有点像摘葡萄
+//        要删除某个特定的节点（该节点肯定没有右子树），就把这个节点的左子树挂到这个节点的位置上
+        if (node.right==null) {
+//            System.out.println("删除的节点："+node.e);
+            node=null;
+//            node = node.left;
+//            System.out.println("删除后的节点"+node.e);
+        }
+        else
+            removeMax(node.right);
+    }
+//    根据传来的节点检查是否有右节点，如果没有，则删掉当前的节点
+//    如果需要删除的节点还有子节点，那么父节点将继承这些节点
+    /*private E containRight(Node father,Node node){
+        if (node.right==null)
+        {
+            father.right=node.left;
+            return node.e;
+        }else
+            return containRight(node,node.right);
+
+    }*/
+
+    public E removeMin(){
+        if (root==null)
+            throw new IllegalArgumentException("无法删除最小值，因为树为空");
+        size--;
+        if (root.left==null){
+            Node res=root;
+            root=null;
+            return res.e;
+        }
+        return containLeft(root,root.left);
+    }
+    private E containLeft(Node father,Node node) {
+        if (node.left==null){
+            father.left=node.right;
+            return node.e;
+        }else
+
+            return containLeft(node,node.left);
     }
 }

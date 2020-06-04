@@ -120,24 +120,21 @@ public class Demo {
     public void test9(){
         BSTree<Integer> bsTree = new BSTree<>();
         bsTree.add(5);
-//        bsTree.printTree();
-        bsTree.add(3);
-//        bsTree.printTree();
         bsTree.add(2);
-        bsTree.add(4);
-        bsTree.add(7);
-        bsTree.add(9);
-        bsTree.add(10);
-        bsTree.add(11);
-        bsTree.add(12);
-        bsTree.add(12);
-        bsTree.add(13);
+        bsTree.add(1);
+        bsTree.add(3);
         bsTree.add(14);
-        bsTree.add(6);
-        bsTree.add(8);
+//        bsTree.add(15);
+        bsTree.add(13);
+//        bsTree.removeMax();
 //        System.out.println(bsTree);
 //        bsTree.preOrder();
 //        System.out.println(bsTree.contains(8));
+        System.out.println(bsTree.removeMax());
+//        System.out.println(bsTree.removeMin());
         bsTree.sequence();
+//        bsTree.printTree();
+
+
     }
 }
